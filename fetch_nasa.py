@@ -9,9 +9,6 @@ from pathlib import Path
 from urllib.parse import urlsplit
 from urllib.parse import unquote
 
-load_dotenv()
-NASA_API_KEY = os.getenv('NASA_API_KEY')
-
 def fetch_nasa_apod():
   directory = 'nasa_apod'
   nasa_apod_url = 'https://api.nasa.gov/planetary/apod'
@@ -68,5 +65,8 @@ def load_picture(directory, filename, url):
       file.write(response.content)
 
 if __name__ == "__main__":
+  load_dotenv()
+  NASA_API_KEY = os.getenv('NASA_API_KEY')
+  
   fetch_nasa_apod()
   fetch_nasa_epic()

@@ -7,16 +7,13 @@ from os import listdir
 from os.path import isfile
 from os.path import join as joinpath
 
-load_dotenv()
-TG_TOKEN = os.getenv('TG_TOKEN')
-CHAT_ID = os.getenv('CHAT_ID')
-
 def post_in_telegram():
   bot = telegram.Bot(token=TG_TOKEN)
+  sleep_time = 86400
   while True:
     for picture in get_pictures_list():
       bot.send_photo(chat_id=CHAT_ID, photo=open(f'images/{picture}', 'rb'))
-      time.sleep(86400)
+      time.sleep(sleep_time)
 
 def get_pictures_list():
   pictures = []
@@ -30,4 +27,8 @@ def get_pictures_list():
   return pictures
 
 if __name__ == "__main__":
+  load_dotenv()
+  TG_TOKEN = os.getenv('TG_TOKEN')
+  CHAT_ID = os.getenv('CHAT_ID')
+
   post_in_telegram()
