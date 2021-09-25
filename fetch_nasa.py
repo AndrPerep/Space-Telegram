@@ -21,9 +21,8 @@ def fetch_nasa_apod():
   response = requests.get(nasa_apod_url, params=payload)
   response.raise_for_status()
 
-  for picture in enumerate(response.json()):
-    number = picture[0]
-    url = picture[1]['url']
+  for number, picture in enumerate(response.json()):
+    url = picture['url']
     ext = get_extension(url)
     filename = f'nasa_apod{number}{ext}'
     path = get_path(directory, filename)
