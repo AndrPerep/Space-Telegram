@@ -5,9 +5,11 @@ import os
 from dotenv import load_dotenv
 from os.path import split
 from os.path import splitext
-from pathlib import Path
 from urllib.parse import urlsplit
 from urllib.parse import unquote
+
+from load_picture import load_picture
+from get_path import get_path
 
 def fetch_nasa_apod():
   directory = 'nasa_apod'
@@ -24,7 +26,8 @@ def fetch_nasa_apod():
     url = picture[1]['url']
     ext = get_extension(url)
     filename = f'nasa_apod{number}{ext}'
-    load_picture(directory, filename, url)
+    path = get_path(directory, filename)
+    load_picture(directory, filename, url, path)
 
 def fetch_nasa_epic():
   directory = 'nasa_epic'
@@ -45,7 +48,8 @@ def fetch_nasa_epic():
     formated_picture_date = picture_date.strftime("%Y/%m/%d")
 
     url = f'https://api.nasa.gov/EPIC/archive/natural/{formated_picture_date}/png/{picture_name}.png?api_key=DEMO_KEY'
-    load_picture(directory, filename, url)
+    path = get_path(directory, filename)
+    load_picture(directory, filename, url, path)
 
 def get_extension(url):
   split_result = urlsplit(url)
@@ -54,15 +58,6 @@ def get_extension(url):
   splitted_filename = splitext(splitted_path[1])
   extension = splitted_filename[1]
   return extension
-
-def load_picture(directory, filename, url):
-  response = requests.get(url)
-  response.raise_for_status()
-
-  Path(f'images/{directory}').mkdir(parents=True, exist_ok=True)
-  path = f'images/{directory}/{filename}'
-  with open(path, 'wb') as file:
-      file.write(response.content)
 
 if __name__ == "__main__":
   load_dotenv()
