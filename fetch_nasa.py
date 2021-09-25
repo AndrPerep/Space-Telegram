@@ -38,11 +38,9 @@ def fetch_nasa_epic():
   response = requests.get(nasa_epic_url, params=payload)
   response.raise_for_status()
 
-  for picture in enumerate(response.json()[:count]):
-    number = picture[0]
+  for number, picture in enumerate(response.json()[:count]):
     filename = f'nasa_epic{number}.png'
-
-    picture_name = picture[1]['image']
+    picture_name = picture['image']
     picture_date = datetime.datetime.fromisoformat(picture[1]['date'])
     formated_picture_date = picture_date.strftime("%Y/%m/%d")
 
