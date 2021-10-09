@@ -11,7 +11,7 @@ from urllib.parse import unquote
 from load_picture import load_picture
 from get_path import get_path
 
-def fetch_nasa_apod():
+def fetch_nasa_apod(NASA_API_KEY):
   directory = 'nasa_apod'
   nasa_apod_url = 'https://api.nasa.gov/planetary/apod'
   payload = {
@@ -28,7 +28,7 @@ def fetch_nasa_apod():
     path = get_path(directory, filename)
     load_picture(directory, filename, url, path)
 
-def fetch_nasa_epic():
+def fetch_nasa_epic(NASA_API_KEY):
   directory = 'nasa_epic'
   count = 5
   nasa_epic_url = 'https://epic.gsfc.nasa.gov/api/natural'
@@ -41,7 +41,7 @@ def fetch_nasa_epic():
   for number, picture in enumerate(response.json()[:count]):
     filename = f'nasa_epic{number}.png'
     picture_name = picture['image']
-    picture_date = datetime.datetime.fromisoformat(picture[1]['date'])
+    picture_date = datetime.datetime.fromisoformat(picture['date'])
     formated_picture_date = picture_date.strftime("%Y/%m/%d")
 
     url = f'https://api.nasa.gov/EPIC/archive/natural/{formated_picture_date}/png/{picture_name}.png?api_key=DEMO_KEY'
@@ -60,5 +60,5 @@ if __name__ == "__main__":
   load_dotenv()
   NASA_API_KEY = os.getenv('NASA_API_KEY')
   
-  fetch_nasa_apod()
-  fetch_nasa_epic()
+  fetch_nasa_apod(NASA_API_KEY)
+  fetch_nasa_epic(NASA_API_KEY)

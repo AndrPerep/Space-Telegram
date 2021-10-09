@@ -9,9 +9,7 @@ def fetch_spacex_last_launch():
   response.raise_for_status()
   images_links = response.json()['links']['flickr']['original']
 
-  for link in enumerate(images_links):
-    number = link[0]
-    url = link[1]
+  for number, url in enumerate(images_links):
     filename = f'spacex{number}.jpg'
     path = get_path(directory, filename)
     load_picture(directory, filename, url, path)
