@@ -11,6 +11,7 @@ from urllib.parse import unquote
 from load_picture import load_picture
 from get_path import get_path
 
+
 def fetch_nasa_apod(NASA_API_KEY):
   directory = 'nasa_apod'
   nasa_apod_url = 'https://api.nasa.gov/planetary/apod'
@@ -26,7 +27,8 @@ def fetch_nasa_apod(NASA_API_KEY):
     ext = get_extension(url)
     filename = f'nasa_apod{number}{ext}'
     path = get_path(directory, filename)
-    load_picture(directory, filename, url, path)
+    load_picture(url, path, payload='')
+
 
 def fetch_nasa_epic(NASA_API_KEY):
   directory = 'nasa_epic'
@@ -44,9 +46,10 @@ def fetch_nasa_epic(NASA_API_KEY):
     picture_date = datetime.datetime.fromisoformat(picture['date'])
     formated_picture_date = picture_date.strftime("%Y/%m/%d")
 
-    url = f'https://api.nasa.gov/EPIC/archive/natural/{formated_picture_date}/png/{picture_name}.png?api_key=DEMO_KEY'
+    url = f'https://api.nasa.gov/EPIC/archive/natural/{formated_picture_date}/png/{picture_name}.png'
     path = get_path(directory, filename)
-    load_picture(directory, filename, url, path)
+    load_picture(url, path, payload)
+
 
 def get_extension(url):
   split_result = urlsplit(url)
@@ -55,6 +58,7 @@ def get_extension(url):
   splitted_filename = splitext(splitted_path[1])
   extension = splitted_filename[1]
   return extension
+
 
 if __name__ == "__main__":
   load_dotenv()
