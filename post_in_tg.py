@@ -7,7 +7,6 @@ from os import listdir
 from os.path import isfile
 from os.path import join
 
-load_dotenv()
 TG_TOKEN = os.getenv('TG_TOKEN')
 CHAT_ID = os.getenv('CHAT_ID')
 
@@ -35,5 +34,6 @@ def get_pictures(folder):
 
 
 if __name__ == "__main__":
+  load_dotenv()
   folder = 'images/'
   post_in_telegram(TG_TOKEN, CHAT_ID, folder)

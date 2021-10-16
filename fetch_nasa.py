@@ -63,6 +63,7 @@ def get_extension(url):
 
 
 if __name__ == "__main__":
+  load_dotenv()
   folder = 'images'
   apod_directory = 'nasa_apod'
   epic_directory = 'nasa_epic'
