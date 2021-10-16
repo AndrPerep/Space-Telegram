@@ -25,15 +25,16 @@ def post_in_telegram(TG_TOKEN, CHAT_ID, folder):
 
 def get_pictures(folder):
   pictures = []
-  for i in listdir(path):
-    if isfile(join(path,i)):
-      pictures.append(i)
+  for element in listdir(folder):
+    if isfile(join(folder,element)):
+      pictures.append(element)
     else:
-      for file in listdir(f'{folder}{i}/'):
-        pictures.append(f'{i}/{file}')
+      for file in listdir(f'{folder}{element}/'):
+        pictures.append(f'{element}/{file}')
   return pictures
 
 
 if __name__ == "__main__":
   folder = 'images/'
+  #print(get_pictures(folder))
   post_in_telegram(TG_TOKEN, CHAT_ID, folder)
