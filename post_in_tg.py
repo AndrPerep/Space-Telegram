@@ -29,12 +29,11 @@ def get_pictures(folder):
     if isfile(join(folder,element)):
       pictures.append(element)
     else:
-      for file in listdir(f'{folder}{element}/'):
+      for file in listdir(join(folder,element)):
         pictures.append(f'{element}/{file}')
   return pictures
 
 
 if __name__ == "__main__":
   folder = 'images/'
-  #print(get_pictures(folder))
   post_in_telegram(TG_TOKEN, CHAT_ID, folder)
