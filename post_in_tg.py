@@ -25,7 +25,6 @@ def post_in_telegram(TG_TOKEN, CHAT_ID, folder):
 
 def get_pictures(folder):
   pictures = []
-  path = (folder)
   for i in listdir(path):
     if isfile(join(path,i)):
       pictures.append(i)
