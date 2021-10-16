@@ -69,6 +69,5 @@ if __name__ == "__main__":
   Path(f'{folder}/{apod_directory}').mkdir(parents=True, exist_ok=True)
   Path(f'{folder}/{epic_directory}').mkdir(parents=True, exist_ok=True)
 
-
   fetch_nasa_apod(NASA_API_KEY, folder, apod_directory)
   fetch_nasa_epic(NASA_API_KEY, folder, epic_directory)
