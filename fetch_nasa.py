@@ -17,10 +17,10 @@ NASA_API_KEY = os.getenv('NASA_API_KEY')
 
 
 
-def fetch_nasa_apod(NASA_API_KEY, folder, directory):
+def fetch_nasa_apod(nasa_api_key, folder, directory):
   nasa_apod_url = 'https://api.nasa.gov/planetary/apod'
   payload = {
-    'api_key': NASA_API_KEY,
+    'api_key': nasa_api_key,
     'count': 30
   }
   response = requests.get(nasa_apod_url, params=payload)
@@ -34,11 +34,11 @@ def fetch_nasa_apod(NASA_API_KEY, folder, directory):
     load_picture(url, path, payload='')
 
 
-def fetch_nasa_epic(NASA_API_KEY, folder, directory):
+def fetch_nasa_epic(nasa_api_key, folder, directory):
   count = 5
   nasa_epic_url = 'https://epic.gsfc.nasa.gov/api/natural'
   payload = {
-    'api_key': NASA_API_KEY
+    'api_key': nasa_api_key
   }
   response = requests.get(nasa_epic_url, params=payload)
   response.raise_for_status()
