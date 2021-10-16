@@ -26,12 +26,13 @@ def fetch_nasa_apod(nasa_api_key, folder, directory):
   response = requests.get(nasa_apod_url, params=payload)
   response.raise_for_status()
 
+  payload = None
   for number, picture in enumerate(response.json()):
     url = picture['url']
     ext = get_extension(url)
     filename = f'nasa_apod{number}{ext}'
     path = f'{folder}/{directory}/{filename}'
-    load_picture(url, path, payload='')
+    load_picture(url, path, payload)
 
 
 def fetch_nasa_epic(nasa_api_key, folder, directory):
