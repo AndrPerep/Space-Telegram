@@ -9,17 +9,15 @@ def fetch_spacex_last_launch(folder, directory):
   response.raise_for_status()
   images_links = response.json()['links']['flickr']['original']
 
-  payload = None
   for number, url in enumerate(images_links):
     filename = f'spacex{number}.jpg'
     path = f'{folder}/{directory}/{filename}'
-    load_picture(url, path, payload)
+    load_picture(url, path)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
   folder = 'images'
   directory = 'spacex'
   Path(f'{folder}/{directory}').mkdir(parents=True, exist_ok=True)
 
   fetch_spacex_last_launch(folder, directory)
-  

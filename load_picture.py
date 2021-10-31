@@ -1,7 +1,7 @@
 import requests
 
 
-def load_picture(url, path, payload):
+def load_picture(url, path, payload=None):
   response = requests.get(url, params=payload)
   response.raise_for_status()
 

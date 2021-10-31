@@ -3,29 +3,30 @@ import telegram
 import time
 
 from dotenv import load_dotenv
-from os import listdir 
+from os import listdir
 from os.path import isfile
 from os.path import join
 
-TG_TOKEN = os.getenv('TG_TOKEN')
-CHAT_ID = os.getenv('CHAT_ID')
 
-
-def post_in_telegram(tg_token, chat_id, folder):
+def post_in_telegram():
+  tg_token = os.getenv('TG_TOKEN')
+  chat_id = os.getenv('CHAT_ID')
+  folder = 'images/'
   bot = telegram.Bot(token=tg_token)
   sleep_time = 86400
+
   while True:
     for picture in get_pictures(folder):
       picture_path = f'{folder}{picture}'
       with open(picture_path, 'rb') as file:
-        bot.send_photo(chat_id=chat_id, photo=open(picture_path, 'rb'))
+        bot.send_photo(chat_id=chat_id, photo=file)
       time.sleep(sleep_time)
 
 
 def get_pictures(folder):
   pictures = []
   for element in listdir(folder):
-    if isfile(join(folder,element)):
+    if isfile(join(folder, element)):
       pictures.append(element)
     else:
       for file in listdir(join(folder,element)):
@@ -33,7 +34,6 @@ def get_pictures(folder):
   return pictures
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
   load_dotenv()
-  folder = 'images/'
-  post_in_telegram(TG_TOKEN, CHAT_ID, folder)
+  post_in_telegram()
