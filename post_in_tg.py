@@ -8,9 +8,8 @@ from os.path import isfile
 from os.path import join
 
 
-def post_in_telegram():
-  tg_token = os.getenv('TG_TOKEN')
-  chat_id = os.getenv('CHAT_ID')
+def post_in_telegram(tg_token, chat_id):
+
   folder = 'images/'
   bot = telegram.Bot(token=tg_token)
   sleep_time = 86400
@@ -36,4 +35,6 @@ def get_pictures(folder):
 
 if __name__ == '__main__':
   load_dotenv()
-  post_in_telegram()
+  tg_token = os.getenv('TG_TOKEN')
+  chat_id = os.getenv('CHAT_ID')
+  post_in_telegram(tg_token, chat_id)
